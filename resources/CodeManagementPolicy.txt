@@ -1,0 +1,35 @@
+NOUVELLE POLITIQUE DE GESTION DU CODE DE COLFINA
+
+
+# Configurer votre git pour qu'il
+# Publie par défaut sur le dépôt 'origin'
+git config remote.pushdefault origin
+
+# Publie par défaut sur une branche portant le même nom que la branche courante dans le dépôt de publication
+git config push.default current
+
+# Ensuite, faire un git pull
+git pull
+
+# Créer la branche development localement
+git checkout development
+
+
+______________________BOUCLE____________________________
+
+# Coder encore encore et encore lol
+
+# Faire ses commits normalement (plusieurs fois si vous voulez)
+# A la fin faire un push (faire même plusieurs si vous voulez)
+
+# Losrque nécessaire (sur demande, ou lorsque la tâche est achevée), 
+# Aller sur le repository (interface web) et créer un pull request vers la branche main
+
+
+# Lorsque le pull request est validé, 
+# Mettez à jour votre branche main locale
+git checkout main
+git pull
+
+
+# Recommencer la ______________________BOUCLE____________________________
