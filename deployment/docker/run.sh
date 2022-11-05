@@ -4,4 +4,5 @@
 # sudo docker kill $(sudo docker ps -q)
 
 #cd ../..
-docker-compose up
+docker-compose up -d
+docker-compose exec work-env python main.py
