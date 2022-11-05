@@ -1,58 +1,103 @@
-# import sys, os
-# from pyspark.conf import SparkConf
-# from pyspark.sql import SparkSession
-# from pyspark.sql.types import Row
-# from subprocess import check_output
-
-# spark_conf = SparkConf()
-
-# SPARK_DRIVER_HOST = check_output(["hostname", "-i"]).decode(encoding="utf-8").strip()
-# spark_conf.setAll(
-#     [
-#         (
-#             "spark.master",
-#             "spark://spark:7077",
-#         ),  # <--- this host must be resolvable by the driver in this case pyspark (whatever it is located, same server or remote) in our case the IP of server
-#         ("spark.app.name", "myApp"),
-#         ("spark.submit.deployMode", "client"),
-#         ("spark.ui.showConsoleProgress", "true"),
-#         ("spark.eventLog.enabled", "false"),
-#         ("spark.logConf", "false"),
-#         (
-#             "spark.driver.bindAddress",
-#             "0.0.0.0",
-#         ),  # <--- this host is the IP where pyspark will bind the service running the driver (normally 0.0.0.0)
-#         (
-#             "spark.driver.host",
-#             SPARK_DRIVER_HOST,
-#         ),  # <--- this host is the resolvable IP for the host that is running the driver and it must be reachable by the master and master must be able to reach it (in our case the IP of the container where we are running pyspark
-#     ]
-# )
-
-# spark_sess = SparkSession.builder.config(conf=spark_conf).getOrCreate()
-# spark_reader = spark_sess.read
-
-# myDF = spark_sess.createDataFrame(
-#     [
-#         Row(col0=0, col1=1, col2=2),
-#         Row(col0=3, col1=1, col2=5),
-#         Row(col0=6, col1=2, col2=8),
-#     ]
-# )
-
-# myGDF = myDF.select("*").groupBy("col1")
-# myDF.createOrReplaceTempView("mydf_as_sqltable")
-# print(myDF.collect())
-# myGDF.sum().show()
-
-# spark_sess.stop()
-# quit()
+import os
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 
-from jobs.chapter02 import *
+from jobs.chapter01 import Chapter01
+from jobs.chapter02 import Chapter02
+from jobs.chapter03 import Chapter03
+from jobs.chapter04 import Chapter04
+from jobs.chapter05 import Chapter05
+from jobs.chapter06 import Chapter06
+from jobs.chapter07 import Chapter07
+from jobs.chapter08 import Chapter08
 
-completeDataFrame(SparkSession, StructType)
-dataFrameWithNullValues(SparkSession, StructType)
+spark = SparkSession.builder.appName('data_processing').getOrCreate()
 
+chapterNames = ["", "Chapter 01", "Chapter 02", "Chapter 03", "Chapter 04", "Chapter 05", "Chapter 06", "Chapter 07", "Chapter 08"]
+
+def printFillLine(lineSize):
+    print(lineSize*"*")
+
+
+def printTabLine(leftSpace, rightSpace, someText):
+    print("*", leftSpace*"\t", someText, rightSpace*"\t", "*")
+
+def showMenu():
+    print("")
+    printFillLine(114)
+    printTabLine(1, 0,  "                                                                                                      ")
+    printTabLine(5, 6,  "Pyspark pour le Big Data")                    
+    printTabLine(2, 5,  "Veuillez choisir le chapitre que vous souhaitez executer")
+    printTabLine(1, 0,  "                                                                                                      ")
+    printFillLine(114)
+    printTabLine(1, 0, "                                                                                                      ")
+    printTabLine(1, 10,  "Liste des chapitre dispo...")
+    printTabLine(1, 10,  "===========================")
+    printTabLine(1, 0, "                                                                                                      ")
+    printTabLine(1, 0, "                                                                                                      ")
+    printTabLine(2, 9,  "Chapitre 01: Scala Language")
+    printTabLine(2, 8,  "Chapitre 02: Data Processing       ")
+    printTabLine(2, 7,  "Chapitre 03: Spark Structured Streaming")
+    printTabLine(2, 9,  "Chapitre 04: Airflow       ")
+    printTabLine(2, 7,  "Chapitre 05: MLlib: Machine Learning Library")
+    printTabLine(2, 7,  "Chapitre 06: Supervised Machine Learning")
+    printTabLine(2, 7,  "Chapitre 07: Unsupervised Machine Learning")
+    printTabLine(2, 7,  "Chapitre 08: Deep Learning Using PySpark")
+    printTabLine(1, 0, "                                                                                                      ")
+    printFillLine(114)
+
+def continueEvaluation(): 
+    try:
+        continuer = 1
+        print("""Souhaitez-vous continuer les tests : 
+            -1- pour rentrez au menu principal
+            -0- Pour arreter l'utilitaire de test \n""")
+        continuer = int(input())
+        return continuer
+    except ValueError:
+        
+        print("Invalide Choice")
+        continueEvaluation()
+
+
+def caseChapter(chapter):
+    try:
+        switcher = {
+            1: Chapter01(chapterNames[1], spark, StructType),
+            2: Chapter02(chapterNames[2], spark, StructType),
+            3: Chapter03(chapterNames[3], spark, StructType),
+            4: Chapter04(chapterNames[4], spark, StructType),
+            5: Chapter05(chapterNames[5], spark, StructType),
+            6: Chapter06(chapterNames[6], spark, StructType),
+            7: Chapter07(chapterNames[7], spark, StructType),
+            8: Chapter08(chapterNames[8], spark, StructType),
+        }
+        selected = switcher.get(chapter, None)
+        if selected  != None: 
+            selected.run()
+    except ValueError:
+          
+          print("Invalide Choice")
+          caseChapter(chapter)
+
+def begin():
+    continuer = chapter =  1 
+    while continuer == 1:
+        
+        showMenu()
+        try:
+          print("\n Veuillez entrez le numero du chapitre que vous souhaitez interroger, Ex: 3")
+          chapter = int(input())
+          print("\n--------------------  START OF CHAPTER ", chapter, "-----------------\n")
+          caseChapter(chapter)
+          print("\n--------------------  END OF CHAPTER ", chapter, "-----------------\n")
+          continuer = continueEvaluation()
+        except ValueError:
+            
+            print("Invalide Choice")
+            begin()
+
+
+## Lancement du programme principal
+begin() 
