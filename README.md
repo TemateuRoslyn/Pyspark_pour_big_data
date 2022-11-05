@@ -42,20 +42,23 @@ root/
  |   |-- | -- |-- python/
  |   |-- | -- |-- |-- Dockerfile
  |   |-- | -- |-- scala/
+ |   |-- | -- run/
+ |   |-- | -- |-- main.sh
+ |   |-- | -- |-- job1.sh
+ |   |-- | -- src/
+ |   |-- | -- |-- pyspark/
+ |   |-- | -- |-- | -- configs/
+ |   |-- | -- |-- | -- dependencies/
+ |   |-- | -- |-- | -- jobs/
+ |   |-- | -- |-- | -- tests/
+ |   |-- | -- |-- | -- main.py
+ |   |-- | -- |-- scala/
  |   |-- | -- volumes/
  |   |-- | -- docker-compose.yml
  |   |-- | -- run.sh
  |   |-- kubernetes/
  |-- resources/
  |   |-- CodeManagementPolicy.txt
- |-- src/
- |   |-- pyspark/
- |   |-- | -- configs/
- |   |-- | -- dependencies/
- |   |-- | -- jobs/
- |   |-- | -- tests/
- |   |-- | -- main.py
- |   |-- scala/
  |   docker-run.sh
  |   README.md
 ```

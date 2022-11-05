@@ -5,4 +5,5 @@
 
 #cd ../..
 docker-compose up -d
-docker-compose exec work-env python init.py
+docker-compose exec work-env python src/pyspark/main.py
+sh run/job1.sh

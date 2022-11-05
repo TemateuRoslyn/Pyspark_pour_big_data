@@ -1,0 +1,1 @@
+docker-compose exec work-env python src/pyspark/jobs/job1.py
