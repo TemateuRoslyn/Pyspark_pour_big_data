@@ -1,9 +1,8 @@
-class Chapter08:
-    
-    def __init__(self, chapterName,  spark, StructType):
-        self.chapterName = chapterName
-        self.spark = spark
-        self.StructType = StructType
+from jobs.chapter import ChapterParent
 
+
+
+class Chapter08(ChapterParent):
+    
     def run(self):
         print("Hello from chater 8")

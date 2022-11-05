@@ -1,9 +1,7 @@
-class Chapter02:
-    
-    def __init__(self, chapterName,  spark, StructType):
-        self.chapterName = chapterName
-        self.spark = spark
-        self.StructType = StructType
+from jobs.chapter import ChapterParent
+
+
+class Chapter02(ChapterParent):
 
     def __str__(self):
         return f"{self.spark}({self.StructType})"
@@ -32,5 +30,7 @@ class Chapter02:
         df.na.drop().show()
 
     def run(self):
-        self.completeDataFrame()
-        self.dataFrameWithNullValues()
+        # self.completeDataFrame()
+        # self.dataFrameWithNullValues()
+        print("Read CSV File from: /path/to/container/container-resources/zipcodes.csv")
+        self.readCSVFile("container-resources/zipcodes.csv", 10)

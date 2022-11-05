@@ -88,6 +88,7 @@ services:
     build: ./custom-images/python/
     volumes:
       - .:/app
+      - ./src/pyspark/resources:/app/container-resources
     command: tail -f /dev/null 
     user: root
     working_dir: /app

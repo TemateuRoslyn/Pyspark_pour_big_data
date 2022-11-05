@@ -14,3 +14,7 @@ INFO: Unsupported notification method: $/setTrace
 2022.11.05 16:32:43 WARN  no build target for: /home/maestros/work-space/me/BigData/scala/Scala_pour_Big_Data/src/main/scala/modules/App.scala
 Nov 05, 2022 4:32:43 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 WARNING: Unmatched cancel notification for request id 81
+Nov 05, 2022 5:52:27 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+Nov 05, 2022 5:52:27 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
