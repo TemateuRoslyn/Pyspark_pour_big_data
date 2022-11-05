@@ -30,28 +30,34 @@ Il contient les source de code qui ont été realisées dans le cadre de ce test
 
 ## Structure du projet PYSPARK_POUR_BIG_DATA
 
-## ETL Project Structure
+## LE Big Data avec Pyspark Project Structure
 
-La structure basic du projet est la suivante:
+La structure complete du projet est la suivante:
 
 ```bash
 root/
- |-- configs/
- |   |-- etl_config.json
- |-- dependencies/
- |   |-- logging.py
- |   |-- spark.py
- |-- jobs/
- |   |-- etl_job.py
- |-- tests/
- |   |-- test_data/
- |   |-- | -- employees/
- |   |-- | -- employees_report/
- |   |-- test_etl_job.py
- |   build_dependencies.sh
- |   packages.zip
- |   Pipfile
- |   Pipfile.lock
+ |-- deployment/
+ |   |-- docker/
+ |   |-- | -- custom-images/
+ |   |-- | -- |-- python/
+ |   |-- | -- |-- |-- Dockerfile
+ |   |-- | -- |-- scala/
+ |   |-- | -- volumes/
+ |   |-- | -- docker-compose.yml
+ |   |-- | -- run.sh
+ |   |-- kubernetes/
+ |-- resources/
+ |   |-- CodeManagementPolicy.txt
+ |-- src/
+ |   |-- pyspark/
+ |   |-- | -- configs/
+ |   |-- | -- dependencies/
+ |   |-- | -- jobs/
+ |   |-- | -- tests/
+ |   |-- | -- main.py
+ |   |-- scala/
+ |   docker-run.sh
+ |   README.md
 ```
 
 *Deployement docker*

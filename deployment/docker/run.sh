@@ -5,4 +5,4 @@
 
 #cd ../..
 docker-compose up -d
-docker-compose exec work-env python main.py
+docker-compose exec work-env python init.py
