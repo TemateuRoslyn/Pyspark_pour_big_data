@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd ./deployment/docker
-sh run/main.sh
+sh run.sh
