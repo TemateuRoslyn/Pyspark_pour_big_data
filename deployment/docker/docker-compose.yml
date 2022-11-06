@@ -84,16 +84,6 @@ services:
   #   networks: 
   #     - apache_spark
 
-  work-env:
-    build: ./custom-images/python/
-    volumes:
-      - ./../..:/app
-    command: tail -f /dev/null 
-    user: root
-    working_dir: /app
-    networks: 
-      - apache_spark
-
   postgresql:
     image: docker.io/bitnami/postgresql:10
     volumes:
@@ -137,6 +127,10 @@ services:
       - apache_spark
   airflow:
     image: docker.io/bitnami/airflow:2
+    user: root
+    working_dir: /app
+    volumes:
+      - ./../..:/app
     environment:
       - AIRFLOW_DATABASE_NAME=bitnami_airflow
       - AIRFLOW_DATABASE_USERNAME=bn_airflow
@@ -147,6 +141,17 @@ services:
       - AIRFLOW_EMAIL=maestros@gmail.com
     ports:
       - '8191:8080'
+    
+    networks: 
+      - apache_spark
+
+  work-env:
+    build: ./custom-images/python/
+    user: root
+    working_dir: /app
+    volumes:
+      - ./../..:/app
+    command: tail -f /dev/null 
     networks: 
       - apache_spark
 volumes:

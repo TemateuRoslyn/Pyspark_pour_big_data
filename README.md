@@ -74,8 +74,15 @@ root/
 
 [3] Lancer le déployement docker: Ouvrir un terminal et executer
     `sh docker-run.sh`
+
+    
+    ![sh docker run](./doc/sh-docker-run.png)
+
+
 [4] Ouvrer un navigateur et allez a l'addresse suivante pour voir spark en action
     `http://localhost:7070/`
+
+
     ![Apache spark home page](./doc/apache-spark-home.png)
 
 [5] Pour acceder a l'interface de Airflow:
@@ -83,7 +90,9 @@ root/
     Identifiant de coneion a Airflow
     username: `user`
     password: `bitnami`
-    ![Apache spark home page](./doc/airflow-home.png)
+
+
+    ![Airflow home page](./doc/airflow-home.png)
 
 
 *Deployement de py-spark*
