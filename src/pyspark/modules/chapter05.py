@@ -1,15 +1,22 @@
 from modules.chapter    import ChapterParent
+
 from pyspark.ml.feature import VectorAssembler, StringIndexer, OneHotEncoder, Binarizer, PCA, Normalizer, StandardScaler, MinMaxScaler, MaxAbsScaler, Bucketizer
 from pyspark.ml.stat    import Correlation
+from pyspark.ml.classification import LogisticRegression
 
 class Chapter05(ChapterParent):
     
     def run(self):
-        print("\n - chater 5 - \n")        
-        # self.readSalarier()
+        print("\n - chater 5 - \n")  
+
+        #   Calcul de la corelation
+        self.readSalarier()
 
         # appel des fonction de transformation sur les donnees
         self.binarizer()
+
+        # classification model
+        self.buildClassifactionModel()
 
     def readSalarier(self):
         print("\n ------ Read Salarier ------ \n")
@@ -137,3 +144,57 @@ class Chapter05(ChapterParent):
         bucketizer = Bucketizer(splits=splits, inputCol="label",outputCol="label_bins")
         binned_df = bucketizer.transform(df)
         binned_df.select(['label','label_bins']).show(10,False)
+
+
+
+    def buildClassifactionModel(self):
+        print("\n ------ Building a Classification Model ------ \n")
+        
+        # 1- Load the dataset
+        df=self.spark.read.csv('src/pyspark/resources/input/csv/classification_data.csv',inferSchema=True,header=True)
+
+        # 2- Explore the Dataframe
+        print("\n Explore the Dataframe \n")
+        print((df.count(),len(df.columns)))
+        df.printSchema()
+        df.show(5)
+        df.groupBy('loan_label').count().show()
+
+        # 3- Data Transformation
+
+        print("\n Data Transformation \n")
+        loan_purpose_indexer = StringIndexer(inputCol="loan_purpose", outputCol="loan_index").fit(df)
+        df = loan_purpose_indexer.transform(df)
+
+        print("\n Select data \n")
+        loan_encoder = OneHotEncoder(inputCol="loan_id",outputCol="loan_purpose_vec")
+        loan_encoder.setDropLast(False)
+        loan_model = loan_encoder.fit(df) # indexer is the existing dataframe, see the question
+        df = loan_model.transform(df)
+        df.select(['loan_purpose','loan_id','loan_purpose_vec']).show(3,False)
+
+        print("\n Assembling datas \n")
+        df_assembler = VectorAssembler(inputCols=['is_first_loan', 'total_credit_card_limit', 'avg_percentage_credit_card_limit_used_last_year', 'saving_amount', 'checking_amount', 'is_employed', 'yearly_salary', 'age', 'dependent_number', 'loan_purpose_vec'], outputCol="features")
+        df = df_assembler.transform(df)
+        df.select(['features','loan_label']).show(10,False)
+
+        model_df=df.select(['features','loan_label'])
+
+        # 4- Splitting into Train and Test Data
+
+        # print("\n Splitting into Train and Test Data \n")
+        # training_df,test_df=model_df.randomSplit([0.75,0.25])
+
+        # # 5 Model Training
+        # print("\n Model Training \n")
+        # log_reg=LogisticRegression().fit(training_df)
+        # lr_summary=log_reg.summary
+        # lr_summary.accuracy
+        # lr_summary.areaUnderROC
+
+        # # print(lr_summary.precisionByLabel)
+        # # print(lr_summary.recallByLabel)
+
+        # predictions = log_reg.transform(test_df)
+        # predictions.show(10)
+
