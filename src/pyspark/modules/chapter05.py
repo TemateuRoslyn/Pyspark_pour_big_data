@@ -34,15 +34,18 @@ class Chapter05(ChapterParent):
 
         marital_indexer = StringIndexer(inputCol="marital", outputCol="marital_num").fit(df)
         df = marital_indexer.transform(df)
+        
         marital_encoder = OneHotEncoder(inputCol="marital_num", outputCol="marital_vector")
+        marital_encoder.setDropLast(False)
+        marital_model = marital_encoder.fit(df) # indexer is the existing dataframe, see the question
+        df = marital_model.transform(df)
 
-        df = marital_encoder.transform(df)
         housing_indexer = StringIndexer(inputCol="housing", outputCol="housing_num").fit(df)
         df = housing_indexer.transform(df)
         
         housing_encoder = OneHotEncoder(inputCol="housing_num", outputCol="housing_vector")
         housing_encoder.setDropLast(False)
-        ohe = housing_encoder.fit(indexer) # indexer is the existing dataframe, see the question
-        df = ohe.transform(df)
+        housing_model = housing_encoder.fit(df) # indexer is the existing dataframe, see the question
+        df = housing_model.transform(df)
         
-        indexer.show()
+        df.show()
