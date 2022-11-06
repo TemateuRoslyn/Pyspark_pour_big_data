@@ -61,6 +61,9 @@ root/
  |   README.md
 ```
 
+![Architecture du projet](./resources/images/architecture.png)
+
+
 *Deployement docker*
 
 [1] Cloner le projet:
@@ -73,7 +76,11 @@ root/
     `sh docker-run.sh`
 [4] Ouvrer un navigateur et allez a l'addresse suivante pour voir spark en action
     `http://localhost:7070/`
-[5] Pour voir le worker qui a été configuré aller à l'adresse suivnate:
-    `http://172.22.0.2:8081/`
+[5] Pour acceder a l'interface de Airflow:
+    `http://localhost:8191/`
+    Identifiant de coneion a Airflow
+    username: `user`
+    password: `bitnami`
+
 
 *Deployement de py-spark*
