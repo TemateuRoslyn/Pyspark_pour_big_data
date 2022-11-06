@@ -4,14 +4,14 @@ from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
-from jobs.chapter01 import Chapter01
-from jobs.chapter02 import Chapter02
-from jobs.chapter03 import Chapter03
-from jobs.chapter04 import Chapter04
-from jobs.chapter05 import Chapter05
-from jobs.chapter06 import Chapter06
-from jobs.chapter07 import Chapter07
-from jobs.chapter08 import Chapter08
+from modules.chapter01 import Chapter01
+from modules.chapter02 import Chapter02
+from modules.chapter03 import Chapter03
+from modules.chapter04 import Chapter04
+from modules.chapter05 import Chapter05
+from modules.chapter06 import Chapter06
+from modules.chapter07 import Chapter07
+from modules.chapter08 import Chapter08
 
 spark = SparkSession.builder.appName('data_processing').getOrCreate()
 

@@ -1,4 +1,4 @@
-from jobs.chapter import ChapterParent
+from modules.chapter import ChapterParent
 
 
 class Chapter06(ChapterParent):
