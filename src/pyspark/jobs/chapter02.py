@@ -69,8 +69,8 @@ class Chapter02(ChapterParent):
     def run(self):
         self.completeDataFrame()
         self.dataFrameWithNullValues()
-        print("\n -----  Read CSV File from: src/pyspark/resources/zipcodes.csv ----- \n")
-        self.readCSVFile("src/pyspark/resources/zipcodes.csv", 10)
+        print("\n -----  Read CSV File from: src/pyspark/resources/input/csv/zipcodes.csv ----- \n")
+        self.readCSVFile("src/pyspark/resources/input/csv/zipcodes.csv", 10)
         self.selectFromDataFrame()
         self.filterDataFrame()
         self.whereDataFrame()

@@ -8,3 +8,6 @@ class ChapterParent:
         df = self.spark.read.csv(filepath)
         df.printSchema()
         df.show(nbrLine)
+
+    def writeCSVFile(self, folder_path, dataBody, dataHeader, customMode):
+        self.spark.createDataFrame(dataBody, dataHeader).write.csv(folder_path,mode=customMode)

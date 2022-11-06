@@ -1,6 +1,7 @@
 import os
 
 from pyspark.sql import SparkSession
+import pyspark.sql.functions as F
 from pyspark.sql.types import *
 
 from jobs.chapter01 import Chapter01
@@ -84,7 +85,6 @@ def caseChapter(chapter):
 def begin():
     continuer = chapter =  1 
     while continuer == 1:
-        
         showMenu()
         try:
           print("\n Veuillez entrez le numero du chapitre que vous souhaitez interroger, Ex: 3")
